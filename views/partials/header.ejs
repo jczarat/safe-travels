@@ -8,14 +8,10 @@
     <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 <body>
-    <!-- <nav class="navbar">
-        <h2>Safe Travels</h2>
-        <a href="/" class="navbar-item">HOME</a>
-    </nav>    -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
           <a class="navbar-item" href="https://bulma.io">
-            <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+            <img src="https://i.imgur.com/VthtYEq.png">
           </a>
       
           <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -28,9 +24,8 @@
         <div id="navbarBasicExample" class="navbar-menu">
           <div class="navbar-start">
             <a class="navbar-item">
-              Home
-            </a>
-      
+                Home
+              </a>
             <a class="navbar-item">
               Documentation
             </a>
@@ -61,11 +56,12 @@
           <div class="navbar-end">
             <div class="navbar-item">
               <div class="buttons">
-                <a class="button is-primary">
-                  <strong>Sign up</strong>
-                </a>
-                <a class="button is-light">
-                  Log in
+                <!-- <a class="button is-light"> -->
+                    <% if (user) { %>
+                        <a href="/logout" class="button is-light">Log Out</a>
+                    <% } else { %>
+                        <a href="/auth/google" class="button is-dark">Login with Google</a>
+                    <% } %>
                 </a>
               </div>
             </div>
