@@ -1,0 +1,28 @@
+<%- include('../partials/header')%>
+
+<div class="columns is-centered">
+    <div class="column is-narrow">
+        <table class="table is-striped" id="alltable">
+            <thead>
+                <tr>
+                    <th>Country&nbsp;</th>
+                    <th>Country Code&nbsp;</th>
+                    <th>Continent&nbsp;</th>
+                    <th>Advisory Score&nbsp;</th>
+                    <th>Details&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% for (const country in countries) { %>
+                <tr>
+                    <td><%= countries[country].name %></td>
+                    <td><%= countries[country].iso_alpha2 %></td>
+                    <td><%= countries[country].continent %></td>
+                    <td><%= countries[country].advisory.score %></td>
+                    <td><a href="/countries/<%= countries[country].iso_alpha2 %>"><button class="button is-primary">Details</button></a></td>
+                </tr>
+                <% }; %>
+            </tbody>
+        </table>
+    </div>
+</div>
