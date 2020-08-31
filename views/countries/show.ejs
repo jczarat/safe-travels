@@ -6,3 +6,35 @@
 <h1 class="is-size-3"><strong>Country Code:</strong> <%= country.iso_alpha2 %></h1>
 <h1 class="is-size-3"><strong>Continent:</strong> <%= country.continent %></h1>
 <h1 class="is-size-3"><strong>Recommendation:</strong> <%= country.advisory.message %></h1>
+
+
+<% comments.forEach(function(comment){ %>
+    <article class="media">
+        <figure class="media-left">
+          <p class="image is-64x64">
+            <img src="<%= comment.user.avatar %>" class="is-rounded">
+          </p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <strong><%= comment.user.name %></strong>
+              <br>
+              <%= comment.text %>
+            </p>
+          </div>
+        </div>
+        <div class="media-right">
+          <button class="delete"></button>
+        </div>
+      </article>
+<% }); %>
+
+
+<form action="/countries/<%= country.iso_alpha2 %>/comments" method="POST">
+    <label>Share your experience traveling in this country!</label><br>
+    <textarea name="text" cols="90" rows="5"></textarea><br>
+    <input type="submit" value="Add a comment" class="button is-info">
+</form>
+
+

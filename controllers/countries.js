@@ -1,4 +1,4 @@
-const Country = require('../models/country')
+const Comment = require('../models/comment')
 const request = require('request');
 const rootURL = 'https://www.travel-advisory.info/api'
 
@@ -20,13 +20,16 @@ function index(req, res){
 
 function show(req, res){
     const countryCode = req.params.id
-
     const options = {
         url: `${rootURL}?countrycode=${countryCode}`
     }
     request(options, function(err, response, body){
         const dataBody = JSON.parse(body);
         const country = dataBody.data[countryCode];
-        res.render('countries/show', {title: 'Specific Country', country});
-    })
+        Comment.find({countryCode: req.params.id}).populate('user').exec(function(err, comments){
+            console.log(comments)
+            res.render('countries/show', {title: 'Specific Country', country, comments});
+        });
+    });
 }
+
