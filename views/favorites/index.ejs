@@ -10,24 +10,24 @@
                     <th>Continent&nbsp;</th>
                     <th>Advisory Score&nbsp;</th>
                     <th>Details&nbsp;</th>
-                    <th>Favorite&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
                 <% for (const country in countries) { %>
+                    <%  let ccMatch = user.favorites.some(function(favorite) { %>
+                        <%  return favorite.countryCode === countries[country].iso_alpha2 %>
+                        <% }); %>
+                        
+                        <% if (ccMatch) { %>
                 <tr>
                     <td><%= countries[country].name %></td>
                     <td><%= countries[country].iso_alpha2 %></td>
                     <td><%= countries[country].continent %></td>
                     <td><%= countries[country].advisory.score %></td>
                     <td><a href="/countries/<%= countries[country].iso_alpha2 %>"><button class="button is-primary">Details</button></a></td>
-                    <td>
-                        <form action="/favorites/<%= countries[country].iso_alpha2 %>" method="POST">
-                            <button type="submit" name="countryCode" class="button is-secondary">Favorite Country</button>
-                        </form>
-                    </td>
                 </tr>
-                <% }; %>
+                    <% } %>
+                <% } %>
             </tbody>
         </table>
     </div>
