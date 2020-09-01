@@ -1,6 +1,7 @@
 const Comment = require('../models/comment')
 const request = require('request');
 const rootURL = 'https://www.travel-advisory.info/api'
+const token = process.env.GOOGLE_MAPS_TOKEN;
 
 module.exports = {
     index,
@@ -15,9 +16,8 @@ function index(req, res){
     };
     request(options, function(err, response, body){
         const dataBody = JSON.parse(body);
-        const countries = dataBody.data;
-        // Create an array form objects property values!
-        let countriesArray = Object.values(countries);
+        // Create an array from objects property values!
+        let countriesArray = Object.values(dataBody.data);
         // Filter to not include any countries that have 0 sources
         let filteredCountries = countriesArray.filter(country => country.advisory.sources_active > 0);
         // Sort by score then return new array of the first 10
@@ -49,7 +49,7 @@ function show(req, res){
         const country = dataBody.data[countryCode];
         Comment.find({countryCode: req.params.id}).populate('user').exec(function(err, comments){
             console.log(comments)
-            res.render('countries/show', {title: 'Specific Country', country, comments});
+            res.render('countries/show', {title: 'Specific Country', country, comments, token});
         });
     });
 }

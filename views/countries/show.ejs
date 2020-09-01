@@ -5,18 +5,23 @@
 <h1 class="is-size-3"><strong>Continent:</strong> <%= country.continent %></h1>
 <h1 class="is-size-3"><strong>Recommendation:</strong> <%= country.advisory.message %></h1>
 
-<%  let ccMatch = user.favorites.some(function(favorite) { %>
-  <%  return favorite.countryCode === country.iso_alpha2 %>
-<% }); %>
 
-<% if (ccMatch) { %>
-      <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
-          <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
-      </form>
-  <% } else { %>
-      <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
-          <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
-      </form>
+<% if (user) { %>
+
+  <%  let ccMatch = user.favorites.some(function(favorite) { %>
+    <%  return favorite.countryCode === country.iso_alpha2 %>
+  <% }); %>
+
+  <% if (ccMatch) { %>
+        <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
+            <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
+        </form>
+    <% } else { %>
+        <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
+            <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
+        </form>
+  <% }; %>
+
 <% }; %>
 
 
@@ -59,6 +64,13 @@
   </div>
 
 <% } %>
+
+<iframe
+  width="600"
+  height="450"
+  frameborder="0" style="border:0"
+  src="https://www.google.com/maps/embed/v1/place?key=<%= token %>&q=<%= country.name %>" allowfullscreen>
+</iframe>
 
 
 

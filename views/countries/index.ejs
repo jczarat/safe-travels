@@ -1,20 +1,20 @@
 <%- include('../partials/header')%>
 
-<div class="container">
+<div class="container mt-6 mb-4">
     <div class="notification">
         <h1 class="is-size-3 has-text-centered">Safest Countries to Travel To</h1>
     </div>
 </div>
 
 <div class="columns is-centered">
-    <div class="column is-narrow">
-        <table class="table is-striped">
+    <div class="column is-four-fifths">
+        <table class="table is-striped is-fullwidth">
             <thead>
                 <tr>
-                    <th><a href="/countries?method=alphabetical">Country</a></th>
-                    <th><a href="/countries?method=countryCode">Country Code</a></th>
-                    <th><a href="/countries?method=continent">Continent</a></th>
-                    <th><a href="/countries?method=advisoryScore">Advisory Score</a></th>
+                    <th>Country</th>
+                    <th>Country Code</th>
+                    <th>Continent</th>
+                    <th>Advisory Score</th>
                     <th>Details&nbsp;</th>
 
                     <% if(user) { %>
@@ -63,15 +63,15 @@
     </div>
 </div>
 
-<div class="container">
+<div class="container mt-6 mb-4">
     <div class="notification">
         <h1 class="is-size-3 has-text-centered">All Countries</h1>
     </div>
 </div>
 
 <div class="columns is-centered">
-    <div class="column is-narrow">
-        <table class="table is-striped">
+    <div class="column is-four-fifths">
+        <table class="table is-striped is-fullwidth">
             <thead>
                 <tr>
                     <th><a href="/countries?method=alphabetical">Country</a></th>
