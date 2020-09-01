@@ -4,8 +4,7 @@ var favoritesCtrl = require('../controllers/favorites')
 
 router.get('/', isLoggedIn, favoritesCtrl.index);
 router.post('/:id', isLoggedIn, favoritesCtrl.addFavorite);
-
-
+router.delete('/:id', isLoggedIn, favoritesCtrl.deleteFavorite);
 
 function isLoggedIn(req, res, next) {
   if (req.isAuthenticated() ) return next();

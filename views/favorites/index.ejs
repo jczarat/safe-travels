@@ -25,6 +25,11 @@
                     <td><%= countries[country].continent %></td>
                     <td><%= countries[country].advisory.score %></td>
                     <td><a href="/countries/<%= countries[country].iso_alpha2 %>"><button class="button is-primary">Details</button></a></td>
+                    <td>
+                        <form action="/favorites/<%= countries[country].iso_alpha2 %>?_method=DELETE" method="POST">
+                            <button type="submit" name="countryCode" class="button is-secondary">Delete Favorite</button>
+                        </form>
+                    </td>
                 </tr>
                     <% } %>
                 <% } %>

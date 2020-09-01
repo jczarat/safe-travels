@@ -5,7 +5,8 @@ const rootURL = 'https://www.travel-advisory.info/api'
 
 module.exports = {
     index,
-    addFavorite
+    addFavorite,
+    deleteFavorite
 }
 
 function index(req, res){
@@ -21,6 +22,17 @@ function index(req, res){
 
 function addFavorite(req, res){
     req.user.favorites.push({countryCode: req.params.id});
+    req.user.save(function(err) {
+        res.redirect('/favorites');
+      });
+    console.log(req.user.favorites);
+}
+
+function deleteFavorite(req, res){
+    let idx = req.user.favorites.findIndex(function(favorite){
+        return favorite.countryCode === req.params.id
+    });
+    req.user.favorites[idx].remove();
     req.user.save(function(err) {
         res.redirect('/favorites');
       });
