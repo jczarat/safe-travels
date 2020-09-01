@@ -13,7 +13,6 @@ require('./config/passport');
 var methodOverride = require('method-override');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 var countriesRouter = require('./routes/countries');
 var commentsRouter = require('./routes/comments')
 var favoritesRouter = require('./routes/favorites')
@@ -43,7 +42,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/countries', countriesRouter);
 app.use('/', commentsRouter)
 app.use('/favorites', favoritesRouter)
