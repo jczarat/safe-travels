@@ -31,6 +31,27 @@
 <% }); %>
 
 
+
+
+<%  let ccMatch = user.favorites.some(function(favorite) { %>
+    <%  return favorite.countryCode === country.iso_alpha2 %>
+<% }); %>
+
+<% if (ccMatch) { %>
+        <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
+            <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
+        </form>
+    <% } else { %>
+        <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
+            <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
+        </form>
+<% }; %>
+
+
+
+
+
+
 <form action="/countries/<%= country.iso_alpha2 %>/comments" method="POST">
     <label>Share your experience traveling in this country!</label><br>
     <textarea name="text" cols="90" rows="5"></textarea><br>
