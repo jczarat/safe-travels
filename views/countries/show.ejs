@@ -1,11 +1,23 @@
 <%- include('../partials/header')%>
 
-
-
 <h1 class="is-size-3"><strong>Country:</strong> <%= country.name %></h1>
 <h1 class="is-size-3"><strong>Country Code:</strong> <%= country.iso_alpha2 %></h1>
 <h1 class="is-size-3"><strong>Continent:</strong> <%= country.continent %></h1>
 <h1 class="is-size-3"><strong>Recommendation:</strong> <%= country.advisory.message %></h1>
+
+<%  let ccMatch = user.favorites.some(function(favorite) { %>
+  <%  return favorite.countryCode === country.iso_alpha2 %>
+<% }); %>
+
+<% if (ccMatch) { %>
+      <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
+          <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
+      </form>
+  <% } else { %>
+      <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
+          <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
+      </form>
+<% }; %>
 
 
 <% comments.forEach(function(comment){ %>
@@ -31,31 +43,25 @@
 <% }); %>
 
 
+<% if (user) { %>
 
-
-<%  let ccMatch = user.favorites.some(function(favorite) { %>
-    <%  return favorite.countryCode === country.iso_alpha2 %>
-<% }); %>
-
-<% if (ccMatch) { %>
-        <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
-            <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
-        </form>
-    <% } else { %>
-        <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
-            <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
-        </form>
-<% }; %>
-
-
-
-
-
-
-<form action="/countries/<%= country.iso_alpha2 %>/comments" method="POST">
+  <form action="/countries/<%= country.iso_alpha2 %>/comments" method="POST">
     <label>Share your experience traveling in this country!</label><br>
     <textarea name="text" cols="90" rows="5"></textarea><br>
     <input type="submit" value="Add a comment" class="button is-info">
-</form>
+  </form>
+
+<% } else { %>
+
+  <div>
+    <p>Log in with Google to leave a commment.</p>
+    <a href="/auth/google" class="button is-dark">Login with Google</a>
+  </div>
+
+<% } %>
+
+
+
+
 
 

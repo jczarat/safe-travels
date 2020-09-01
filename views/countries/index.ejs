@@ -1,44 +1,126 @@
 <%- include('../partials/header')%>
 
+<div class="container">
+    <div class="notification">
+        <h1 class="is-size-3 has-text-centered">Safest Countries to Travel To</h1>
+    </div>
+</div>
+
 <div class="columns is-centered">
     <div class="column is-narrow">
-        <table class="table is-striped" id="alltable">
+        <table class="table is-striped">
             <thead>
                 <tr>
-                    <th>Country&nbsp;</th>
-                    <th>Country Code&nbsp;</th>
-                    <th>Continent&nbsp;</th>
-                    <th>Advisory Score&nbsp;</th>
+                    <th><a href="/countries?method=alphabetical">Country</a></th>
+                    <th><a href="/countries?method=countryCode">Country Code</a></th>
+                    <th><a href="/countries?method=continent">Continent</a></th>
+                    <th><a href="/countries?method=advisoryScore">Advisory Score</a></th>
                     <th>Details&nbsp;</th>
-                    <th>Favorite&nbsp;</th>
+
+                    <% if(user) { %>
+
+                        <th>Favorite&nbsp;</th>
+
+                    <% } %>
+
                 </tr>
             </thead>
             <tbody>
-                <% for (const country in countries) { %>
+                <% topCountries.forEach(country => { %>
                 <tr>
-                    <td><%= countries[country].name %></td>
-                    <td><%= countries[country].iso_alpha2 %></td>
-                    <td><%= countries[country].continent %></td>
-                    <td><%= countries[country].advisory.score %></td>
-                    <td><a href="/countries/<%= countries[country].iso_alpha2 %>"><button class="button is-dark">Details</button></a></td>
-                    <%  let ccMatch = user.favorites.some(function(favorite) { %>
-                        <%  return favorite.countryCode === countries[country].iso_alpha2 %>
+                    <td><%= country.name %></td>
+                    <td><%= country.iso_alpha2 %></td>
+                    <td><%= country.continent %></td>
+                    <td><%= country.advisory.score %></td>
+                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark">Details</button></a></td>
+
+                    <% let ccMatch %>
+
+                    <% if(user) { %>
+
+                    <%  ccMatch = user.favorites.some(function(favorite) { %>
+                        <%  return favorite.countryCode === country.iso_alpha2 %>
                         <% }); %>
+
                         <% if (ccMatch) { %>
                             <td>
-                                <form action="/favorites/<%= countries[country].iso_alpha2 %>?_method=DELETE" method="POST">
+                                <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
                                     <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
                                 </form>
                             </td>
                         <% } else { %>
                             <td>
-                                <form action="/favorites/<%= countries[country].iso_alpha2 %>" method="POST">
+                                <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
                                     <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
                                 </form>
                             </td>
                         <% } %>
+                    <% } %>
                 </tr>
-                <% }; %>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <div class="notification">
+        <h1 class="is-size-3 has-text-centered">All Countries</h1>
+    </div>
+</div>
+
+<div class="columns is-centered">
+    <div class="column is-narrow">
+        <table class="table is-striped">
+            <thead>
+                <tr>
+                    <th><a href="/countries?method=alphabetical">Country</a></th>
+                    <th><a href="/countries?method=countryCode">Country Code</a></th>
+                    <th><a href="/countries?method=continent">Continent</a></th>
+                    <th><a href="/countries?method=advisoryScore">Advisory Score</a></th>
+                    <th>Details&nbsp;</th>
+
+                    <% if(user) { %>
+
+                        <th>Favorite&nbsp;</th>
+
+                    <% } %>
+
+                </tr>
+            </thead>
+            <tbody>
+                <% countriesArray.forEach(country => { %>
+                <tr>
+                    <td><%= country.name %></td>
+                    <td><%= country.iso_alpha2 %></td>
+                    <td><%= country.continent %></td>
+                    <td><%= country.advisory.score %></td>
+                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark">Details</button></a></td>
+
+                    <% let ccMatch %>
+
+                    <% if(user) { %>
+
+                    <%  ccMatch = user.favorites.some(function(favorite) { %>
+                        <%  return favorite.countryCode === country.iso_alpha2 %>
+                        <% }); %>
+
+                        <% if (ccMatch) { %>
+                            <td>
+                                <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
+                                    <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
+                                </form>
+                            </td>
+                        <% } else { %>
+                            <td>
+                                <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
+                                    <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
+                                </form>
+                            </td>
+                        <% } %>
+                    <% } %>
+                </tr>
+                <% }); %>
             </tbody>
         </table>
     </div>

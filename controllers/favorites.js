@@ -15,8 +15,8 @@ function index(req, res){
     };
     request(options, function(err, response, body){
         const dataBody = JSON.parse(body);
-        const countries = dataBody.data;
-        res.render('favorites/index', {title: 'All Countries', countries});
+        let countriesArray = Object.values(dataBody.data);
+        res.render('favorites/index', {title: 'All Countries', countriesArray});
     })
 }
 

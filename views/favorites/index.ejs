@@ -1,5 +1,11 @@
 <%- include('../partials/header')%>
 
+<div class="container">
+    <div class="notification">
+        <h1 class="is-size-3 has-text-centered">Favorite Countries</h1>
+    </div>
+  </div>
+
 <div class="columns is-centered">
     <div class="column is-narrow">
         <table class="table is-striped" id="alltable">
@@ -13,26 +19,26 @@
                 </tr>
             </thead>
             <tbody>
-                <% for (const country in countries) { %>
+                <% countriesArray.forEach(country => { %>
                     <%  let ccMatch = user.favorites.some(function(favorite) { %>
-                        <%  return favorite.countryCode === countries[country].iso_alpha2 %>
+                        <%  return favorite.countryCode === country.iso_alpha2 %>
                         <% }); %>
                         
                         <% if (ccMatch) { %>
                 <tr>
-                    <td><%= countries[country].name %></td>
-                    <td><%= countries[country].iso_alpha2 %></td>
-                    <td><%= countries[country].continent %></td>
-                    <td><%= countries[country].advisory.score %></td>
-                    <td><a href="/countries/<%= countries[country].iso_alpha2 %>"><button class="button is-dark">Details</button></a></td>
+                    <td><%= country.name %></td>
+                    <td><%= country.iso_alpha2 %></td>
+                    <td><%= country.continent %></td>
+                    <td><%= country.advisory.score %></td>
+                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark">Details</button></a></td>
                     <td>
-                        <form action="/favorites/<%= countries[country].iso_alpha2 %>?_method=DELETE" method="POST">
+                        <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
                             <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
                         </form>
                     </td>
                 </tr>
                     <% } %>
-                <% } %>
+                <% }); %>
             </tbody>
         </table>
     </div>

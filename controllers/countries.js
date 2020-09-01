@@ -8,13 +8,34 @@ module.exports = {
 }
 
 function index(req, res){
+    if (!Object.keys(req.query).length) req.query.method = 'alphabetical';
+    console.log(req.query)
     const options = {
         url: rootURL
     };
     request(options, function(err, response, body){
         const dataBody = JSON.parse(body);
         const countries = dataBody.data;
-        res.render('countries/index', {title: 'All Countries', countries});
+        // Create an array form objects property values!
+        let countriesArray = Object.values(countries);
+        // Filter to not include any countries that have 0 sources
+        let filteredCountries = countriesArray.filter(country => country.advisory.sources_active > 0);
+        // Sort by score then return new array of the first 10
+        let topCountries = filteredCountries.sort((a, b) => a.advisory.score - b.advisory.score).splice(0, 10);
+        const sortingMethods = {
+            alphabetical: (a, b) => a.name.localeCompare(b.name),
+            continent: (a, b) => a.continent.localeCompare(b.continent),
+            countryCode: (a, b) => a.iso_alpha2.localeCompare(b.iso_alpha2),
+            advisoryScore: (a, b) => a.advisory.score - b.advisory.score
+        }
+        if (req.query.method === 'advisoryScore') {
+            countriesArray = countriesArray.filter(country => country.advisory.sources_active > 0);
+            countriesArray.sort(sortingMethods[req.query.method]);
+        } else {
+            countriesArray.sort(sortingMethods[req.query.method]);  
+        }
+
+        res.render('countries/index', {title: 'All Countries', countriesArray, topCountries});
     })
 }
 
