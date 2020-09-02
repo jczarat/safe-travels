@@ -1,0 +1,70 @@
+<%- include('../partials/header')%>
+
+<div class="container mt-6 mb-4">
+    <div class="notification">
+        <h1 class="is-size-3 has-text-centered">Search Results</h1>
+    </div>
+</div>
+
+<% if (searchResult) { %>
+
+    <div class="columns is-centered">
+        <div class="column is-four-fifths">
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Country</th>
+                        <th>Country Code</th>
+                        <th>Continent</th>
+                        <th>Advisory Score</th>
+                        <th>Details&nbsp;</th>
+
+                        <% if(user) { %>
+
+                            <th>Favorite&nbsp;</th>
+
+                        <% } %>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><%= searchResult.name %></td>
+                        <td><%= searchResult.iso_alpha2 %></td>
+                        <td><%= searchResult.continent %></td>
+                        <td><%= searchResult.advisory.score %></td>
+                        <td><a href="/countries/<%= searchResult.iso_alpha2 %>"><button class="button is-dark">Details</button></a></td>
+
+                        <% let ccMatch %>
+
+                        <% if(user) { %>
+
+                        <%  ccMatch = user.favorites.some(function(favorite) { %>
+                            <%  return favorite.countryCode === searchResult.iso_alpha2 %>
+                            <% }); %>
+
+                            <% if (ccMatch) { %>
+                                <td>
+                                    <form action="/favorites/<%= searchResult.iso_alpha2 %>?_method=DELETE" method="POST">
+                                        <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
+                                    </form>
+                                </td>
+                            <% } else { %>
+                                <td>
+                                    <form action="/favorites/<%= searchResult.iso_alpha2 %>" method="POST">
+                                        <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
+                                    </form>
+                                </td>
+                            <% } %>
+                        <% } %>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+<% } else { %>
+
+    <h1 class="is-size-3"> Sorry, we weren't able to find "<%= searchedTerm%>" </h1>
+
+<% } %>

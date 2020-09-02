@@ -39,6 +39,12 @@
     </div>
 
     <div class="navbar-end">
+      <div class="navbar-item">
+          <form action="/search" method="GET" class="field is-grouped">
+            <input type="text" name="name" placeholder="Enter a country name" class="input">
+            <button type="submit" class="button is-light">Go!</button>
+          </form>
+      </div>
       <% if (user) { %>
         <p class="image is-64x64">
           <img src="<%= user.avatar %>" class="is-rounded">

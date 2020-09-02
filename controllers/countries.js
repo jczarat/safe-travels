@@ -11,7 +11,6 @@ module.exports = {
 
 function index(req, res){
     if (!Object.keys(req.query).length) req.query.method = 'alphabetical';
-    console.log(req.query)
     const options = {
         url: rootURL
     };

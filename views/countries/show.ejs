@@ -78,15 +78,20 @@
   </div>
 </div>
 
-<h1 class="is-size-3"><strong>Total Confirmed Cases:</strong> <%= covidCountry.TotalConfirmed %></h1>
-<h1 class="is-size-3"><strong>New Confirmed Cases:</strong> <%= covidCountry.NewConfirmed %></h1>
-<h1 class="is-size-3"><strong>New Deaths:</strong> <%= covidCountry.NewDeaths %></h1>
-<h1 class="is-size-3"><strong>Total Deaths:</strong> <%= covidCountry.TotalDeaths %></h1>
-<h1 class="is-size-3"><strong>New Recovered:</strong> <%= covidCountry.NewRecovered %></h1>
-<h1 class="is-size-3"><strong>Total Recovered:</strong> <%= covidCountry.TotalRecovered %></h1>
-<h1 class="is-size-3"><strong>Date Updated</strong> <%= covidCountry.Date %></h1>
+<% if(covidCountry) { %>
 
+  <h1 class="is-size-3"><strong>Total Confirmed Cases:</strong> <%= covidCountry.TotalConfirmed %></h1>
+  <h1 class="is-size-3"><strong>New Confirmed Cases:</strong> <%= covidCountry.NewConfirmed %></h1>
+  <h1 class="is-size-3"><strong>New Deaths:</strong> <%= covidCountry.NewDeaths %></h1>
+  <h1 class="is-size-3"><strong>Total Deaths:</strong> <%= covidCountry.TotalDeaths %></h1>
+  <h1 class="is-size-3"><strong>New Recovered:</strong> <%= covidCountry.NewRecovered %></h1>
+  <h1 class="is-size-3"><strong>Total Recovered:</strong> <%= covidCountry.TotalRecovered %></h1>
+  <h1 class="is-size-3"><strong>Date Updated</strong> <%= covidCountry.Date %></h1>
 
+<% } else { %>
 
+  <h1 class="is-size-3"> Sorry, we currently don't have any COVID-19 data for <%= country.name %> </h1>
+
+<% } %>
 
 
