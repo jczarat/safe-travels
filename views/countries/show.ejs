@@ -1,9 +1,103 @@
 <%- include('../partials/header')%>
 
-<h1 class="is-size-3"><strong>Country:</strong> <%= country.name %></h1>
-<h1 class="is-size-3"><strong>Country Code:</strong> <%= country.iso_alpha2 %></h1>
-<h1 class="is-size-3"><strong>Continent:</strong> <%= country.continent %></h1>
-<h1 class="is-size-3"><strong>Recommendation:</strong> <%= country.advisory.message %></h1>
+<div class="container mt-6 mb-4">
+  <div class="notification">
+      <h1 class="is-size-3 has-text-centered"><%= country.name %></h1>
+  </div>
+</div>
+
+<!-- TILE START -->
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-8">
+    <article class="tile is-child box">
+      <p class="title">Main column</p>
+      <p class="subtitle">With some content</p>
+      <div class="content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+      </div>
+    </article>
+  </div>
+  <div class="tile is-parent">
+    <article class="tile is-child box">
+      <p class="title">Side column</p>
+      <p class="subtitle">With some content</p>
+      <div class="content">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+      </div>
+    </article>
+  </div>
+</div>
+
+<div class="tile is-ancestor">
+  <div class="tile is-vertical is-8">
+    <div class="tile">
+
+      <div class="tile is-parent is-vertical">
+        <article class="tile is-child notification is-primary">
+          <p class="subtitle">Country Code:</p>
+          <p class="title"><%= country.iso_alpha2 %></p>
+        </article>
+        <article class="tile is-child notification is-warning">
+          <p class="subtitle">Continent:</p>
+          <p class="title"> <%= country.continent %></p>
+        </article>
+      </div>
+      <div class="tile is-parent">
+        <article class="tile is-child notification is-info">
+          <p class="title">Travel Recommendation:</p>
+          <p class="subtitle"><%= country.advisory.message %></p>
+          <!-- <figure class="image is-4by3">
+            <img src="https://bulma.io/images/placeholders/640x480.png">
+          </figure> -->
+        </article>
+      </div>
+    </div>
+    <div class="tile is-parent">
+      <article class="tile is-child notification is-danger">
+        <p class="title">Explore <%= country.name %></p>
+        <iframe
+          width="100%"
+          height="600"
+          frameborder="0" style="border:0"
+          src="https://www.google.com/maps/embed/v1/place?key=<%= token %>&q=<%= country.name %>" allowfullscreen>
+        </iframe>
+        <div class="content">
+          <!-- Content -->
+        </div>
+      </article>
+    </div>
+  </div>
+  <div class="tile is-parent">
+    <article class="tile is-child notification is-success">
+      <div class="content">
+        <p class="title">Covid Data:</p>
+        <% if(covidCountry) { %>
+          <p class="subtitle">Total Confirmed Cases:</p>
+          <p class="title is-2 is-spaced"><%= covidCountry.TotalConfirmed %></p>
+          <p class="subtitle">New Confirmed Cases:</p>
+          <p class="title is-2 is-spaced"><%= covidCountry.NewConfirmed %></p>
+          <p class="subtitle">New Deaths:</p>
+          <p class="title is-2 is-spaced"><%= covidCountry.NewDeaths %></p>
+          <p class="subtitle">Total Deaths:</p>
+          <p class="title is-2 is-spaced"><%= covidCountry.TotalDeaths %></p>
+          <p class="subtitle">New Recovered:</p>
+          <p class="title is-2 is-spaced"><%= covidCountry.NewRecovered %></p>
+          <p class="subtitle">Total Recovered:</p>
+          <p class="title is-2 is-spaced"><%= covidCountry.TotalRecovered %></p>
+          <p class="subtitle">Date Updated:</p>
+          <p class="title is-2 is-spaced"><%= covidCountry.Date %></p>
+        <% } else { %>
+          <p class="title is-2 is-spaced">Sorry, we currently don't have any COVID-19 data for <%= country.name %> </p>
+        <% } %>
+        <div class="content">
+          <!-- Content -->
+        </div>
+      </div>
+    </article>
+  </div>
+</div>
+
+<!-- TILE END -->
 
 
 <% if (user) { %>
@@ -62,35 +156,6 @@
     <p>Log in with Google to leave a commment.</p>
     <a href="/auth/google" class="button is-dark">Login with Google</a>
   </div>
-
-<% } %>
-
-<iframe
-  width="600"
-  height="450"
-  frameborder="0" style="border:0"
-  src="https://www.google.com/maps/embed/v1/place?key=<%= token %>&q=<%= country.name %>" allowfullscreen>
-</iframe>
-
-<div class="container mt-6 mb-4">
-  <div class="notification">
-      <h1 class="is-size-3 has-text-centered">Covid Data</h1>
-  </div>
-</div>
-
-<% if(covidCountry) { %>
-
-  <h1 class="is-size-3"><strong>Total Confirmed Cases:</strong> <%= covidCountry.TotalConfirmed %></h1>
-  <h1 class="is-size-3"><strong>New Confirmed Cases:</strong> <%= covidCountry.NewConfirmed %></h1>
-  <h1 class="is-size-3"><strong>New Deaths:</strong> <%= covidCountry.NewDeaths %></h1>
-  <h1 class="is-size-3"><strong>Total Deaths:</strong> <%= covidCountry.TotalDeaths %></h1>
-  <h1 class="is-size-3"><strong>New Recovered:</strong> <%= covidCountry.NewRecovered %></h1>
-  <h1 class="is-size-3"><strong>Total Recovered:</strong> <%= covidCountry.TotalRecovered %></h1>
-  <h1 class="is-size-3"><strong>Date Updated</strong> <%= covidCountry.Date %></h1>
-
-<% } else { %>
-
-  <h1 class="is-size-3"> Sorry, we currently don't have any COVID-19 data for <%= country.name %> </h1>
 
 <% } %>
 
