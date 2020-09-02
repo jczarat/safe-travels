@@ -4,5 +4,4 @@ const searchCtrl = require('../controllers/search')
 
 router.get('/', searchCtrl.index)
 
-
 module.exports = router;

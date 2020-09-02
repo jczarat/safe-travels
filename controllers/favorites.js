@@ -25,7 +25,6 @@ function addFavorite(req, res){
     req.user.save(function(err) {
         res.redirect('/favorites');
       });
-    console.log(req.user.favorites);
 }
 
 function deleteFavorite(req, res){
@@ -36,5 +35,4 @@ function deleteFavorite(req, res){
     req.user.save(function(err) {
         res.redirect('/favorites');
       });
-    console.log(req.user.favorites);
 }

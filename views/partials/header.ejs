@@ -9,54 +9,52 @@
   <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
-<body class="is-family-primary">
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
-        <img src="https://i.imgur.com/VthtYEq.png">
-      </a>
+<body class="is-family-secondary">
+  <nav id="mynav" class="navbar is-spaced" role="navigation" aria-label="main navigation">
 
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-        data-target="navbarBasicExample">
+    <div class="navbar-brand">
+      <p class="image is-64x64">
+        <img src="https://i.imgur.com/VthtYEq.png" class="is-rounded">
+      </p>
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
       </a>
     </div>
 
+
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
-        <a href="/" class="navbar-item">
+        <a href="/" class="navbar-item is-size-4 has-text-weight-semibold">
           Home
         </a>
-        <a href="/countries" class="navbar-item">
+        <a href="/countries" class="navbar-item is-size-4 has-text-weight-semibold">
           Countries
         </a>
-        <a href="/favorites" class="navbar-item">
+        <a href="/favorites" class="navbar-item is-size-4 has-text-weight-semibold">
           Favorites
         </a>
+        <div class="navbar-item">
+          <form action="/search" method="GET" class="field has-addons is-grouped">
+            <input type="text" name="name" placeholder="Enter a country name" class="input">
+            <button type="submit" class="button is-dark">Search</button>
+          </form>
+        </div>
       </div>
     </div>
 
     <div class="navbar-end">
-      <div class="navbar-item">
-          <form action="/search" method="GET" class="field is-grouped">
-            <input type="text" name="name" placeholder="Enter a country name" class="input">
-            <button type="submit" class="button is-light">Go!</button>
-          </form>
-      </div>
       <% if (user) { %>
         <p class="image is-64x64">
           <img src="<%= user.avatar %>" class="is-rounded">
         </p>
-
         <div class="navbar-item">
           <h2><strong><%= user.name %></strong></h2>
         </div>
       <% } %>
       <div class="navbar-item">
         <div class="buttons">
-          <!-- <a class="button is-light"> -->
           <% if (user) { %>
           <a href="/logout" class="button is-light">Log Out</a>
           <% } else { %>
@@ -66,7 +64,9 @@
         </div>
       </div>
     </div>
+
   </nav>
+
 </body>
 
 </html>

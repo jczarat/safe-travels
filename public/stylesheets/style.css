@@ -1,9 +1,39 @@
 body {
   padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
   color: #00B7FF;
 }
 
+#homepage {
+  background-image: url("https://i.imgur.com/QBmPR4B.jpg");
+  background-size: cover;
+  height: 100vh;
+}
+
+#showbody {
+  background-color: #8cbebf;
+}
+
+#mynav {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%
+}
+
+#landing {
+  display: flex;
+  flex-direction: column ;
+  text-align: center;
+  padding-top: 30vh;
+}
+
+#landinfo {
+  background-color: rgba(255, 255, 255, 0.6);
+  width: 50%;
+  margin: auto;
+  padding: 50px;
+  border-radius: 20px;
+}

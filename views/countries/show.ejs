@@ -1,17 +1,12 @@
 <%- include('../partials/header')%>
 
-<div class="container mt-6 mb-4">
-  <div class="notification">
-      <h1 class="is-size-3 has-text-centered"><%= country.name %></h1>
-  </div>
-</div>
-
+<body id="showbody">
 <!-- TILE START -->
-<div class="tile is-ancestor">
+<div class="tile is-ancestor mt-6">
   <div class="tile is-parent is-8">
     <article class="tile is-child box">
-      <p class="title">Main column</p>
-      <p class="subtitle">With some content</p>
+      <p class="title"><%= country.name %></p>
+      <p class="subtitle">Quick Facts:</p>
       <div class="content">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
       </div>
@@ -19,41 +14,63 @@
   </div>
   <div class="tile is-parent">
     <article class="tile is-child box">
-      <p class="title">Side column</p>
-      <p class="subtitle">With some content</p>
-      <div class="content">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque tortor vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-      </div>
+      <p class="title">Favorite</p>
+
+      <% if (user) { %>
+
+        <%  let ccMatch = user.favorites.some(function(favorite) { %>
+          <%  return favorite.countryCode === country.iso_alpha2 %>
+        <% }); %>
+
+        <div class="content">
+          <% if (ccMatch) { %>
+            <p class="subtitle">Delete <%= country.name %> from your favorites list.</p>
+                <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
+                    <button type="submit" name="countryCode" class="button is-danger is-large">Delete Favorite</button>
+                </form>
+            <% } else { %>
+              <p class="subtitle">Add <%= country.name %> to your favorites list.</p>
+                <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
+                    <button type="submit" name="countryCode" class="button is-success is-large">Add Favorite</button>
+                </form>
+          <% }; %>
+        </div>
+
+        <% } else { %>
+          <p class="subtitle">Login with Google to add <%= country.name %> to your favorites list.</p>
+          <div class="content">
+            <a href="/auth/google" class="button is-dark is-large">Login with Google</a>
+          </div>
+        <% } %>
     </article>
   </div>
 </div>
+
+<!-- SECOND TILE -->
 
 <div class="tile is-ancestor">
   <div class="tile is-vertical is-8">
     <div class="tile">
 
       <div class="tile is-parent is-vertical">
-        <article class="tile is-child notification is-primary">
+        <article class="tile is-child box">
           <p class="subtitle">Country Code:</p>
           <p class="title"><%= country.iso_alpha2 %></p>
         </article>
-        <article class="tile is-child notification is-warning">
+        <article class="tile is-child box">
           <p class="subtitle">Continent:</p>
           <p class="title"> <%= country.continent %></p>
         </article>
       </div>
       <div class="tile is-parent">
-        <article class="tile is-child notification is-info">
+        <article class="tile is-child box">
           <p class="title">Travel Recommendation:</p>
           <p class="subtitle"><%= country.advisory.message %></p>
-          <!-- <figure class="image is-4by3">
-            <img src="https://bulma.io/images/placeholders/640x480.png">
-          </figure> -->
         </article>
       </div>
     </div>
     <div class="tile is-parent">
-      <article class="tile is-child notification is-danger">
+      <article class="tile is-child box">
         <p class="title">Explore <%= country.name %></p>
         <iframe
           width="100%"
@@ -67,9 +84,8 @@
       </article>
     </div>
   </div>
-  <div class="tile is-parent">
-    <article class="tile is-child notification is-success">
-      <div class="content">
+  <div class="tile is-parent is is-vertical">
+    <article class="tile is-child box">
         <p class="title">Covid Data:</p>
         <% if(covidCountry) { %>
           <p class="subtitle">Total Confirmed Cases:</p>
@@ -89,74 +105,69 @@
         <% } else { %>
           <p class="title is-2 is-spaced">Sorry, we currently don't have any COVID-19 data for <%= country.name %> </p>
         <% } %>
-        <div class="content">
-          <!-- Content -->
-        </div>
+    </article>
+  </div>
+</div>
+
+<!-- THIRD TILE -->
+
+<div class="tile is-ancestor">
+  <div class="tile is-parent is-5">
+    <article class="tile is-child box">
+      <p class="title">Experience Board</p>
+      <div class="content">
+        <% comments.forEach(function(comment){ %>
+          <article class="media pt-5">
+              <figure class="media-left">
+                <p class="image is-64x64">
+                  <img src="<%= comment.user.avatar %>" class="is-rounded">
+                </p>
+              </figure>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong><%= comment.user.name %></strong>
+                    <br>
+                    <%= comment.text %>
+                  </p>
+                </div>
+              </div>
+              <div class="media-right pr-6">
+                <button class="delete is-large"></button>
+              </div>
+            </article>
+          <% }); %>
       </div>
+    </article>
+  </div>
+  <div class="tile is-parent">
+    <article class="tile is-child box">
+          <% if (user) { %>
+            <p class="title">Share Your Experience In <%= country.name %> </p>
+            <div class="content">
+
+            <form action="/countries/<%= country.iso_alpha2 %>/comments" method="POST">
+              <textarea name="text" cols="90" rows="5"></textarea><br>
+              <input type="submit" value="Submit Comment" class="button is-info is-large mt-4">
+            </form>
+
+            </div>
+          
+          <% } else { %>
+
+            <p class="title">Share Your Experience In <%= country.name %> </p>
+            <p class="subtitle">Login with Google to leave a comment. </p>
+
+            <div class="content">
+              <a href="/auth/google" class="button is-dark is-large mt-4">Login with Google</a>
+            </div>
+          
+          <% } %>
+        </div>
     </article>
   </div>
 </div>
 
 <!-- TILE END -->
 
-
-<% if (user) { %>
-
-  <%  let ccMatch = user.favorites.some(function(favorite) { %>
-    <%  return favorite.countryCode === country.iso_alpha2 %>
-  <% }); %>
-
-  <% if (ccMatch) { %>
-        <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
-            <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
-        </form>
-    <% } else { %>
-        <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
-            <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
-        </form>
-  <% }; %>
-
-<% }; %>
-
-
-<% comments.forEach(function(comment){ %>
-    <article class="media">
-        <figure class="media-left">
-          <p class="image is-64x64">
-            <img src="<%= comment.user.avatar %>" class="is-rounded">
-          </p>
-        </figure>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <strong><%= comment.user.name %></strong>
-              <br>
-              <%= comment.text %>
-            </p>
-          </div>
-        </div>
-        <div class="media-right">
-          <button class="delete"></button>
-        </div>
-      </article>
-<% }); %>
-
-
-<% if (user) { %>
-
-  <form action="/countries/<%= country.iso_alpha2 %>/comments" method="POST">
-    <label>Share your experience traveling in this country!</label><br>
-    <textarea name="text" cols="90" rows="5"></textarea><br>
-    <input type="submit" value="Add a comment" class="button is-info">
-  </form>
-
-<% } else { %>
-
-  <div>
-    <p>Log in with Google to leave a commment.</p>
-    <a href="/auth/google" class="button is-dark">Login with Google</a>
-  </div>
-
-<% } %>
-
-
+</body>

@@ -8,7 +8,7 @@
 
 <div class="columns is-centered">
     <div class="column is-four-fifths">
-        <table class="table is-striped is-fullwidth">
+        <table class="table is-striped is-fullwidth is-hoverable">
             <thead>
                 <tr>
                     <th>Country</th>
@@ -32,7 +32,7 @@
                     <td><%= country.iso_alpha2 %></td>
                     <td><%= country.continent %></td>
                     <td><%= country.advisory.score %></td>
-                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark">Details</button></a></td>
+                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark is-fullwidth">Details</button></a></td>
 
                     <% let ccMatch %>
 
@@ -45,13 +45,13 @@
                         <% if (ccMatch) { %>
                             <td>
                                 <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
-                                    <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
+                                    <button type="submit" name="countryCode" class="button is-danger is-fullwidth">Delete Favorite</button>
                                 </form>
                             </td>
                         <% } else { %>
                             <td>
                                 <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
-                                    <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
+                                    <button type="submit" name="countryCode" class="button is-success is-fullwidth">Add Favorite</button>
                                 </form>
                             </td>
                         <% } %>
@@ -95,7 +95,7 @@
                     <td><%= country.iso_alpha2 %></td>
                     <td><%= country.continent %></td>
                     <td><%= country.advisory.score %></td>
-                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark">Details</button></a></td>
+                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark is-fullwidth">Details</button></a></td>
 
                     <% let ccMatch %>
 
@@ -108,13 +108,13 @@
                         <% if (ccMatch) { %>
                             <td>
                                 <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
-                                    <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
+                                    <button type="submit" name="countryCode" class="button is-danger is-fullwidth">Delete Favorite</button>
                                 </form>
                             </td>
                         <% } else { %>
                             <td>
                                 <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
-                                    <button type="submit" name="countryCode" class="button is-success">Add Favorite</button>
+                                    <button type="submit" name="countryCode" class="button is-success is-fullwidth">Add Favorite</button>
                                 </form>
                             </td>
                         <% } %>
