@@ -39,5 +39,9 @@ a {
 }
 
 #commentbox {
-  width: 98%
+  width: 98%;
+}
+
+#highlightcomment {
+    border-radius: 30px;
 }

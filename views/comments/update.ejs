@@ -1,0 +1,75 @@
+<%- include('../partials/header')%>
+
+<body id="showbody">
+
+    <!-- THIRD TILE -->
+
+    <div class="tile is-ancestor mt-6">
+        <div class="tile is-parent is-6">
+            <article class="tile is-child box">
+                <p class="title">Experience Board</p>
+                <div class="content">
+                    <% comments.forEach(function(comment){ %>
+                        <% if(comment.id === editCommentId) { %>
+                    <article id="highlightcomment" class="media pt-5 pr-5 has-background-warning">
+                    <% } else { %>
+                    <article class="media pt-5 pr-5">
+                    <% } %>
+                        <figure class="media-left">
+                            <p class="image is-64x64">
+                                <img src="<%= comment.user.avatar %>" class="is-rounded">
+                            </p>
+                        </figure>
+                        <div class="media-content">
+                            <div class="content">
+                                <p>
+                                    <strong><%= comment.user.name %></strong>
+                                    <br>
+                                    <%= comment.text %>
+                                </p>
+                            </div>
+                        </div>
+                        <% if(comment.user._id.equals(user && user._id)) { %>
+                        <div class="media-right">
+                            <div class="content">
+                                <form
+                                    action="/comments/<%=  comment._id %>?_method=DELETE&countryCode=<%= country.iso_alpha2 %>"
+                                    method="POST">
+                                    <button class="button is-small is-rounded is-danger is-fullwidth"
+                                        type="submit">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                        <% } %>
+                    </article>
+                    <% }); %>
+                </div>
+            </article>
+        </div>
+        <div class="tile is-parent">
+            <article class="tile is-child box">
+                <% if (user) { %>
+                <p class="title">Edit Your Experience In <%= country.name %> </p>
+                <div class="content">
+
+                    <form action="/comments/<%= comment._id %>/?_method=PUT&countryCode=<%= country.iso_alpha2 %>" method="POST">
+                        <textarea id="commentbox" name="text"  cols="60" rows="5"><%= comment.text %></textarea><br>
+                        <input type="submit" value="Confirm Changes" class="button is-info is-large mt-4">
+                    </form>
+
+                </div>
+
+                <% } else { %>
+                <p class="title">Share Your Experience In <%= country.name %> </p>
+                <p class="subtitle">Login with Google to leave a comment. </p>
+                <div class="content">
+                    <a href="/auth/google" class="button is-dark is-large mt-4">Login with Google</a>
+                </div>
+                <% } %>
+            </article>
+        </div>
+    </div>
+
+    <!-- TILE END -->
+
+</body>
