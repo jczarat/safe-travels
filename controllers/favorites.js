@@ -22,8 +22,9 @@ function index(req, res){
 
 function addFavorite(req, res){
     req.user.favorites.push({countryCode: req.params.id});
+    console.log(req.body)
     req.user.save(function(err) {
-        res.redirect('/favorites');
+        res.redirect(`/${req.query.root}/${req.query.countryCode}`);
       });
 }
 
@@ -33,6 +34,6 @@ function deleteFavorite(req, res){
     });
     req.user.favorites[idx].remove();
     req.user.save(function(err) {
-        res.redirect('/favorites');
+        res.redirect(`/${req.query.root}/${req.query.countryCode}`);
       });
 }

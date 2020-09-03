@@ -1,7 +1,8 @@
 const Comment = require('../models/comment');
 
 module.exports = {
-    create
+    create,
+    delete: deleteComment
 }
 
 function create(req, res){
@@ -9,4 +10,10 @@ function create(req, res){
     req.body.user = req.user._id
     Comment.create(req.body)
     .then(()=> {res.redirect(`/countries/${req.params.id}`)})
+}
+
+function deleteComment(req, res){
+    Comment.findByIdAndDelete(req.params.id, function(err) {
+        res.redirect(`/countries/${req.query.countryCode}`)
+    })
 }

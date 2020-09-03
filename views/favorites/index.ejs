@@ -6,7 +6,7 @@
     </div>
 </div>
 
-  <div class="columns is-centered">
+<div class="columns is-centered">
     <div class="column is-four-fifths">
         <table class="table is-striped is-fullwidth">
             <thead>
@@ -20,24 +20,25 @@
             </thead>
             <tbody>
                 <% countriesArray.forEach(country => { %>
-                    <%  let ccMatch = user.favorites.some(function(favorite) { %>
-                        <%  return favorite.countryCode === country.iso_alpha2 %>
-                        <% }); %>
-                        
-                        <% if (ccMatch) { %>
+                <%  let ccMatch = user.favorites.some(function(favorite) { %>
+                <%  return favorite.countryCode === country.iso_alpha2 %>
+                <% }); %>
+
+                <% if (ccMatch) { %>
                 <tr>
                     <td><%= country.name %></td>
                     <td><%= country.iso_alpha2 %></td>
                     <td><%= country.continent %></td>
                     <td><%= country.advisory.score %></td>
-                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark">Details</button></a></td>
+                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button
+                                class="button is-dark">Details</button></a></td>
                     <td>
-                        <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
-                            <button type="submit" name="countryCode" class="button is-danger">Delete Favorite</button>
+                        <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE&root=favorites&countryCode=" method="POST">
+                            <button type="submit" class="button is-danger">Delete Favorite</button>
                         </form>
                     </td>
                 </tr>
-                    <% } %>
+                <% } %>
                 <% }); %>
             </tbody>
         </table>

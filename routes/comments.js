@@ -3,6 +3,7 @@ var router = express.Router();
 const commentsCtrl = require('../controllers/comments')
 
 router.post('/countries/:id/comments', isLoggedIn, commentsCtrl.create)
+router.delete('/comments/:id', isLoggedIn, commentsCtrl.delete)
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated() ) return next();

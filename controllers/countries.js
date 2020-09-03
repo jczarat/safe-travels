@@ -53,7 +53,6 @@ function show(req, res){
         request(covidOptions, function(err, response, body){
             const covidBody = JSON.parse(body);
             const covidCountry = covidBody.Countries.find(place => place.CountryCode === countryCode);
-            console.log(covidCountry);
             Comment.find({countryCode: req.params.id}).populate('user').exec(function(err, comments){
                 res.render('countries/show', {title: 'Specific Country', country, comments, token, covidCountry});
             });

@@ -19,7 +19,7 @@
 
                     <% if(user) { %>
 
-                        <th>Favorite&nbsp;</th>
+                    <th>Favorite&nbsp;</th>
 
                     <% } %>
 
@@ -32,29 +32,32 @@
                     <td><%= country.iso_alpha2 %></td>
                     <td><%= country.continent %></td>
                     <td><%= country.advisory.score %></td>
-                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark is-fullwidth">Details</button></a></td>
+                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button
+                                class="button is-dark is-fullwidth">Details</button></a></td>
 
                     <% let ccMatch %>
 
                     <% if(user) { %>
 
                     <%  ccMatch = user.favorites.some(function(favorite) { %>
-                        <%  return favorite.countryCode === country.iso_alpha2 %>
-                        <% }); %>
+                    <%  return favorite.countryCode === country.iso_alpha2 %>
+                    <% }); %>
 
-                        <% if (ccMatch) { %>
-                            <td>
-                                <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
-                                    <button type="submit" name="countryCode" class="button is-danger is-fullwidth">Delete Favorite</button>
-                                </form>
-                            </td>
-                        <% } else { %>
-                            <td>
-                                <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
-                                    <button type="submit" name="countryCode" class="button is-success is-fullwidth">Add Favorite</button>
-                                </form>
-                            </td>
-                        <% } %>
+                    <% if (ccMatch) { %>
+                    <td>
+                        <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE&root=countries&countryCode=" method="POST">
+                            <button type="submit" class="button is-danger is-fullwidth">Delete
+                                Favorite</button>
+                        </form>
+                    </td>
+                    <% } else { %>
+                    <td>
+                        <form action="/favorites/<%= country.iso_alpha2 %>?root=countries&countryCode=" method="POST">
+                            <button type="submit" class="button is-success is-fullwidth">Add
+                                Favorite</button>
+                        </form>
+                    </td>
+                    <% } %>
                     <% } %>
                 </tr>
                 <% }); %>
@@ -82,7 +85,7 @@
 
                     <% if(user) { %>
 
-                        <th>Favorite&nbsp;</th>
+                    <th>Favorite&nbsp;</th>
 
                     <% } %>
 
@@ -95,29 +98,32 @@
                     <td><%= country.iso_alpha2 %></td>
                     <td><%= country.continent %></td>
                     <td><%= country.advisory.score %></td>
-                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark is-fullwidth">Details</button></a></td>
+                    <td><a href="/countries/<%= country.iso_alpha2 %>"><button
+                                class="button is-dark is-fullwidth">Details</button></a></td>
 
                     <% let ccMatch %>
 
                     <% if(user) { %>
 
                     <%  ccMatch = user.favorites.some(function(favorite) { %>
-                        <%  return favorite.countryCode === country.iso_alpha2 %>
-                        <% }); %>
+                    <%  return favorite.countryCode === country.iso_alpha2 %>
+                    <% }); %>
 
-                        <% if (ccMatch) { %>
-                            <td>
-                                <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE" method="POST">
-                                    <button type="submit" name="countryCode" class="button is-danger is-fullwidth">Delete Favorite</button>
-                                </form>
-                            </td>
-                        <% } else { %>
-                            <td>
-                                <form action="/favorites/<%= country.iso_alpha2 %>" method="POST">
-                                    <button type="submit" name="countryCode" class="button is-success is-fullwidth">Add Favorite</button>
-                                </form>
-                            </td>
-                        <% } %>
+                    <% if (ccMatch) { %>
+                    <td>
+                        <form action="/favorites/<%= country.iso_alpha2 %>?_method=DELETE&root=countries&countryCode=" method="POST">
+                            <button type="submit" class="button is-danger is-fullwidth">Delete
+                                Favorite</button>
+                        </form>
+                    </td>
+                    <% } else { %>
+                    <td>
+                        <form action="/favorites/<%= country.iso_alpha2 %>?root=countries&countryCode=" method="POST">
+                            <button type="submit" class="button is-success is-fullwidth">Add
+                                Favorite</button>
+                        </form>
+                    </td>
+                    <% } %>
                     <% } %>
                 </tr>
                 <% }); %>
