@@ -40,6 +40,7 @@ function index(req, res){
 }
 
 function show(req, res){
+    let editing = false;
     const countryCode = req.params.id
     const options = {
         url: `${rootURL}?countrycode=${countryCode}`
@@ -54,7 +55,7 @@ function show(req, res){
             const covidBody = JSON.parse(body);
             const covidCountry = covidBody.Countries.find(place => place.CountryCode === countryCode);
             Comment.find({countryCode: req.params.id}).populate('user').exec(function(err, comments){
-                res.render('countries/show', {title: 'Specific Country', country, comments, token, covidCountry});
+                res.render('countries/show', {title: 'Specific Country', country, comments, token, covidCountry, editing});
             });
         });
     });
