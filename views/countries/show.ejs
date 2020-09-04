@@ -12,8 +12,10 @@
                 <p class="subtitle"><strong>Languages: </strong>
 
                     <% flagCountry.languages.forEach(function(language, idx){ %>
-                    <% if (idx === flagCountry.languages.length -1) { %>
-                    <%= language.name %>.
+                    <% if (flagCountry.languages.length === 1) { %>
+                    <%= language.name %>
+                    <% } else if (idx === flagCountry.languages.length -1) { %>
+                    <%= language.name %>
                     <% } else { %>
                     <%= language.name %>,
                     <% } %>
@@ -24,7 +26,9 @@
                 <p class="subtitle"><strong>Currencies: </strong>
 
                     <% flagCountry.currencies.forEach(function(currency, idx){ %>
-                    <% if (idx === flagCountry.currencies.length -1) { %>
+                    <% if (flagCountry.currencies.length === 1) { %>
+                    <%= currency.name %>
+                    <% } else if (idx === flagCountry.currencies.length -1) { %>
                     <%= currency.name %>.
                     <% } else { %>
                     <%= currency.name %>,
