@@ -1,71 +1,78 @@
 <%- include('../partials/header')%>
 
+<!-- HEADER TILE -->
+
 <body id="showbody">
+    <div id="updateheader" class="tile is-ancestor mt-6">
+        <div class="tile is-parent is-12">
+            <article class="tile is-child box">
+                <p class="title"><%= country.name %></p>
+                <p class="subtitle">Quick Facts:</p>
+                <div class="content">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque
+                        tortor
+                        vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+                </div>
+            </article>
+        </div>
+    </div>
 
-    <!-- THIRD TILE -->
+    <!-- COMMENT TILES -->
 
-    <div class="tile is-ancestor mt-6">
+    <div id="updatetiles" class="tile is-ancestor">
         <div class="tile is-parent is-6">
             <article class="tile is-child box">
                 <p class="title">Experience Board</p>
                 <div class="content">
                     <% comments.forEach(function(comment){ %>
-                        <% if(comment.id === editCommentId) { %>
+                    <% if(comment.id === editCommentId) { %>
                     <article id="highlightcomment" class="media pt-5 pr-5 has-background-warning">
-                    <% } else { %>
-                    <article class="media pt-5 pr-5">
-                    <% } %>
-                        <figure class="media-left">
-                            <p class="image is-64x64">
-                                <img src="<%= comment.user.avatar %>" class="is-rounded">
-                            </p>
-                        </figure>
-                        <div class="media-content">
-                            <div class="content">
-                                <p>
-                                    <strong><%= comment.user.name %></strong>
-                                    <br>
-                                    <%= comment.text %>
+                        <% } else { %>
+                        <article class="media pt-5 pr-5">
+                            <% } %>
+                            <figure class="media-left">
+                                <p class="image is-64x64">
+                                    <img src="<%= comment.user.avatar %>" class="is-rounded">
                                 </p>
+                            </figure>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong><%= comment.user.name %></strong>
+                                        <br>
+                                        <%= comment.text %>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <% if(comment.user._id.equals(user && user._id)) { %>
-                        <div class="media-right">
-                            <div class="content">
-                                <form
-                                    action="/comments/<%=  comment._id %>?_method=DELETE&countryCode=<%= country.iso_alpha2 %>"
-                                    method="POST">
-                                    <button class="button is-small is-rounded is-danger is-fullwidth"
-                                        type="submit">Delete</button>
-                                </form>
+                            <% if(comment.user._id.equals(user && user._id)) { %>
+                            <div class="media-right">
+                                <div class="content">
+                                    <form
+                                        action="/comments/<%=  comment._id %>?_method=DELETE&countryCode=<%= country.iso_alpha2 %>"
+                                        method="POST">
+                                        <button class="button is-rounded is-danger is-fullwidth"
+                                            type="submit">Delete</button>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <% } %>
-                    </article>
-                    <% }); %>
+                            <% } %>
+                        </article>
+                        <% }); %>
                 </div>
             </article>
         </div>
         <div class="tile is-parent">
             <article class="tile is-child box">
-                <% if (user) { %>
                 <p class="title">Edit Your Experience In <%= country.name %> </p>
                 <div class="content">
-
-                    <form action="/comments/<%= comment._id %>/?_method=PUT&countryCode=<%= country.iso_alpha2 %>" method="POST">
-                        <textarea id="commentbox" name="text"  cols="60" rows="5"><%= comment.text %></textarea><br>
-                        <input type="submit" value="Confirm Changes" class="button is-info is-large mt-4">
+                    <form action="/comments/<%= comment._id %>/?_method=PUT&countryCode=<%= country.iso_alpha2 %>"
+                        method="POST">
+                        <textarea name="text" cols="60" rows="5"
+                            class="is-size-5 commentbox"><%= comment.text %></textarea><br>
+                        <input type="submit" value="Confirm Changes" class="button is-warning is-large is-fullwidth mt-4">
                     </form>
-
+                    <a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark is-large is-fullwidth mt-4">Cancel Changes</button></a>
                 </div>
-
-                <% } else { %>
-                <p class="title">Share Your Experience In <%= country.name %> </p>
-                <p class="subtitle">Login with Google to leave a comment. </p>
-                <div class="content">
-                    <a href="/auth/google" class="button is-dark is-large mt-4">Login with Google</a>
-                </div>
-                <% } %>
             </article>
         </div>
     </div>

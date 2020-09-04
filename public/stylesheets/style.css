@@ -14,6 +14,8 @@ a {
 
 #showbody {
   background-color: #8cbebf;
+  min-height: 100vh;
+  height: 100%;
 }
 
 #mynav {
@@ -38,10 +40,18 @@ a {
   border-radius: 20px;
 }
 
-#commentbox {
-  width: 98%;
+.commentbox {
+  width: 100%;
 }
 
 #highlightcomment {
     border-radius: 30px;
+}
+
+#updatetiles {
+    height: 80%;
+}
+
+#updateheader {
+    padding-top: 1%
 }

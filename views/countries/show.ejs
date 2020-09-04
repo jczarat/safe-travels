@@ -90,24 +90,24 @@
         </div>
         <div class="tile is-parent is is-vertical">
             <article class="tile is-child box">
-                <p class="title">Covid Data:</p>
+                <p class="title is-spaced">Covid Data:</p>
                 <% if(covidCountry) { %>
                 <p class="subtitle">Total Confirmed Cases:</p>
-                <p class="title is-2 is-spaced"><%= covidCountry.TotalConfirmed %></p>
+                <p class="title is-3 is-spaced"><%= covidCountry.TotalConfirmed %></p>
                 <p class="subtitle">New Confirmed Cases:</p>
-                <p class="title is-2 is-spaced"><%= covidCountry.NewConfirmed %></p>
+                <p class="title is-3 is-spaced"><%= covidCountry.NewConfirmed %></p>
                 <p class="subtitle">New Deaths:</p>
-                <p class="title is-2 is-spaced"><%= covidCountry.NewDeaths %></p>
+                <p class="title is-3 is-spaced"><%= covidCountry.NewDeaths %></p>
                 <p class="subtitle">Total Deaths:</p>
-                <p class="title is-2 is-spaced"><%= covidCountry.TotalDeaths %></p>
+                <p class="title is-3 is-spaced"><%= covidCountry.TotalDeaths %></p>
                 <p class="subtitle">New Recovered:</p>
-                <p class="title is-2 is-spaced"><%= covidCountry.NewRecovered %></p>
+                <p class="title is-3 is-spaced"><%= covidCountry.NewRecovered %></p>
                 <p class="subtitle">Total Recovered:</p>
-                <p class="title is-2 is-spaced"><%= covidCountry.TotalRecovered %></p>
+                <p class="title is-3 is-spaced"><%= covidCountry.TotalRecovered %></p>
                 <p class="subtitle">Date Updated:</p>
-                <p class="title is-2 is-spaced"><%= covidCountry.Date %></p>
+                <p class="title is-3 is-spaced"><%= covidCountry.Date %></p>
                 <% } else { %>
-                <p class="title is-2 is-spaced">Sorry, we currently don't have any COVID-19 data for <%= country.name %>
+                <p class="title is-3 is-spaced">Sorry, we currently don't have any COVID-19 data for <%= country.name %>
                 </p>
                 <% } %>
             </article>
@@ -161,8 +161,8 @@
                 <p class="title">Share Your Experience In <%= country.name %> </p>
                 <div class="content">
                     <form action="/countries/<%= country.iso_alpha2 %>/comments" method="POST">
-                        <textarea id="commentbox" name="text" cols="60" rows="5"></textarea><br>
-                        <input type="submit" value="Submit Comment" class="button is-info is-large mt-4">
+                        <textarea name="text" cols="60" rows="5" class="is-size-5 commentbox"></textarea><br>
+                        <input type="submit" value="Submit Comment" class="button is-info is-large is-fullwidth mt-4">
                     </form>
                 </div>
                 <% } else { %>
