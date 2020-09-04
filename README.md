@@ -29,6 +29,7 @@ Safe Travels is a travel app that lets you research travel advisories and COVID-
 #### - HTML
 #### - Embedded JavaScript Templates
 #### - Bulma CSS Framework
+#### - Passport
 
 ## Next Steps:
 ### 1. Add more specific information about travel advisories.
