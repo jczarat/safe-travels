@@ -1,7 +1,9 @@
-const Comment = require('../models/comment')
+const Comment = require('../models/comment');
 const request = require('request');
+const numeral = require('numeral');
 const rootURL = 'https://www.travel-advisory.info/api';
 const covidRootURL = 'https://api.covid19api.com/summary';
+const flagRootURL = 'https://restcountries.eu/rest/v2/all'
 const token = process.env.GOOGLE_MAPS_TOKEN;
 
 module.exports = {
@@ -9,18 +11,15 @@ module.exports = {
     show
 }
 
-function index(req, res){
+function index(req, res) {
     if (!Object.keys(req.query).length) req.query.method = 'alphabetical';
     const options = {
         url: rootURL
     };
-    request(options, function(err, response, body){
+    request(options, function (err, response, body) {
         const dataBody = JSON.parse(body);
-        // Create an array from objects property values!
         let countriesArray = Object.values(dataBody.data);
-        // Filter to not include any countries that have 0 sources
         let filteredCountries = countriesArray.filter(country => country.advisory.sources_active > 0);
-        // Sort by score then return new array of the first 10
         let topCountries = filteredCountries.sort((a, b) => a.advisory.score - b.advisory.score).splice(0, 10);
         const sortingMethods = {
             alphabetical: (a, b) => a.name.localeCompare(b.name),
@@ -32,15 +31,13 @@ function index(req, res){
             countriesArray = countriesArray.filter(country => country.advisory.sources_active > 0);
             countriesArray.sort(sortingMethods[req.query.method]);
         } else {
-            countriesArray.sort(sortingMethods[req.query.method]);  
+            countriesArray.sort(sortingMethods[req.query.method]);
         }
-
-        res.render('countries/index', {title: 'All Countries', countriesArray, topCountries});
-    })
+        res.render('countries/index', { title: 'All Countries', countriesArray, topCountries });
+    });
 }
 
-function show(req, res){
-    let editing = false;
+function show(req, res) {
     const countryCode = req.params.id
     const options = {
         url: `${rootURL}?countrycode=${countryCode}`
@@ -48,14 +45,21 @@ function show(req, res){
     const covidOptions = {
         url: covidRootURL
     }
-    request(options, function(err, response, body){
+    const flagOptions = {
+        url: flagRootURL
+    }
+    request(options, function (err, response, body) {
         const dataBody = JSON.parse(body);
         const country = dataBody.data[countryCode];
-        request(covidOptions, function(err, response, body){
+        request(covidOptions, function (err, response, body) {
             const covidBody = JSON.parse(body);
             const covidCountry = covidBody.Countries.find(place => place.CountryCode === countryCode);
-            Comment.find({countryCode: countryCode}).populate('user').exec(function(err, comments){
-                res.render('countries/show', {title: 'Specific Country', country, comments, token, covidCountry, editing});
+            request(flagOptions, function (err, response, body) {
+                const flagBody = JSON.parse(body);
+                const flagCountry = flagBody.find(flag => flag.alpha2Code === countryCode);
+                Comment.find({ countryCode: countryCode }).populate('user').exec(function (err, comments) {
+                    res.render('countries/show', { title: 'Specific Country', country, covidCountry, flagCountry, comments, token, numeral });
+                })
             });
         });
     });

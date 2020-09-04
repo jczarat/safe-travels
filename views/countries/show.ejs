@@ -3,17 +3,47 @@
 <body id="showbody">
     <!-- TILE START -->
     <div class="tile is-ancestor mt-6">
-        <div class="tile is-parent is-8">
+        <div class="tile is-parent is-4">
             <article class="tile is-child box">
-                <p class="title"><%= country.name %></p>
-                <p class="subtitle">Quick Facts:</p>
+                <p class="title is-spaced"><%= country.name %></p>
+                <p class="subtitle"><strong>Capital: </strong><%= flagCountry.capital %></p>
+                <p class="subtitle"><strong>Population: </strong><%= numeral(flagCountry.population).format('0,0') %>
+                </p>
+                <p class="subtitle"><strong>Languages: </strong>
+
+                    <% flagCountry.languages.forEach(function(language, idx){ %>
+                    <% if (idx === flagCountry.languages.length -1) { %>
+                    <%= language.name %>.
+                    <% } else { %>
+                    <%= language.name %>,
+                    <% } %>
+                    <% }) %>
+
+
+                </p>
+                <p class="subtitle"><strong>Currencies: </strong>
+
+                    <% flagCountry.currencies.forEach(function(currency, idx){ %>
+                    <% if (idx === flagCountry.currencies.length -1) { %>
+                    <%= currency.name %>.
+                    <% } else { %>
+                    <%= currency.name %>,
+                    <% } %>
+                    <% }) %>
+
+                </p>
+                <p class="subtitle"><strong>Native Name: </strong><%= flagCountry.nativeName %></p>
+            </article>
+        </div>
+
+        <div class="tile is-parent is-4">
+            <article class="tile is-child box">
                 <div class="content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque
-                        tortor
-                        vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
+                    <img src="<%= flagCountry.flag %>" alt="">
                 </div>
             </article>
         </div>
+
         <div class="tile is-parent">
             <article class="tile is-child box">
                 <p class="title">Favorite</p>
@@ -60,12 +90,12 @@
 
                 <div class="tile is-parent is-vertical">
                     <article class="tile is-child box">
-                        <p class="subtitle">Country Code:</p>
-                        <p class="title"><%= country.iso_alpha2 %></p>
+                        <p class="subtitle">Region:</p>
+                        <p class="title"> <%= flagCountry.region %></p>
                     </article>
                     <article class="tile is-child box">
-                        <p class="subtitle">Continent:</p>
-                        <p class="title"> <%= country.continent %></p>
+                        <p class="subtitle">Country Code:</p>
+                        <p class="title"><%= country.iso_alpha2 %></p>
                     </article>
                 </div>
                 <div class="tile is-parent">
@@ -93,19 +123,22 @@
                 <p class="title is-spaced">Covid Data:</p>
                 <% if(covidCountry) { %>
                 <p class="subtitle">Total Confirmed Cases:</p>
-                <p class="title is-3 is-spaced"><%= covidCountry.TotalConfirmed %></p>
+                <p class="title is-3 is-spaced"><%= numeral(covidCountry.TotalConfirmed).format('0,0') %></p>
                 <p class="subtitle">New Confirmed Cases:</p>
-                <p class="title is-3 is-spaced"><%= covidCountry.NewConfirmed %></p>
+                <p class="title is-3 is-spaced"><%= numeral(covidCountry.NewConfirmed).format('0,0') %></p>
                 <p class="subtitle">New Deaths:</p>
-                <p class="title is-3 is-spaced"><%= covidCountry.NewDeaths %></p>
+                <p class="title is-3 is-spaced"><%= numeral(covidCountry.NewDeaths).format('0,0') %></p>
                 <p class="subtitle">Total Deaths:</p>
-                <p class="title is-3 is-spaced"><%= covidCountry.TotalDeaths %></p>
+                <p class="title is-3 is-spaced"><%= numeral(covidCountry.TotalDeat).format('0,0') %></p>
                 <p class="subtitle">New Recovered:</p>
-                <p class="title is-3 is-spaced"><%= covidCountry.NewRecovered %></p>
+                <p class="title is-3 is-spaced"><%= numeral(covidCountry.NewRecovered).format('0,0') %></p>
                 <p class="subtitle">Total Recovered:</p>
-                <p class="title is-3 is-spaced"><%= covidCountry.TotalRecovered %></p>
+                <p class="title is-3 is-spaced"><%= numeral(covidCountry.TotalRecovered).format('0,0') %></p>
                 <p class="subtitle">Date Updated:</p>
-                <p class="title is-3 is-spaced"><%= covidCountry.Date %></p>
+                <p class="title is-3 is-spaced">
+                    <% const date = new Date(covidCountry.Date) %>
+                    <%= date.toDateString() %>
+                </p>
                 <% } else { %>
                 <p class="title is-3 is-spaced">Sorry, we currently don't have any COVID-19 data for <%= country.name %>
                 </p>
@@ -146,7 +179,8 @@
                                     <button class="button is-small is-rounded is-danger is-fullwidth"
                                         type="submit">Delete</button>
                                 </form>
-                                <a href="/comments/<%=  comment._id %>/edit?countryCode=<%= country.iso_alpha2 %>"><button class="button is-small is-rounded is-warning is-fullwidth mt-1">Edit</button></a>
+                                <a href="/comments/<%=  comment._id %>/edit?countryCode=<%= country.iso_alpha2 %>"><button
+                                        class="button is-small is-rounded is-warning is-fullwidth mt-1">Edit</button></a>
                             </div>
                         </div>
                         <% } %>

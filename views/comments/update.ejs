@@ -7,12 +7,6 @@
         <div class="tile is-parent is-12">
             <article class="tile is-child box">
                 <p class="title"><%= country.name %></p>
-                <p class="subtitle">Quick Facts:</p>
-                <div class="content">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ornare magna eros, eu pellentesque
-                        tortor
-                        vestibulum ut. Maecenas non massa sem. Etiam finibus odio quis feugiat facilisis.</p>
-                </div>
             </article>
         </div>
     </div>
@@ -69,9 +63,11 @@
                         method="POST">
                         <textarea name="text" cols="60" rows="5"
                             class="is-size-5 commentbox"><%= comment.text %></textarea><br>
-                        <input type="submit" value="Confirm Changes" class="button is-warning is-large is-fullwidth mt-4">
+                        <input type="submit" value="Confirm Changes"
+                            class="button is-warning is-large is-fullwidth mt-4">
                     </form>
-                    <a href="/countries/<%= country.iso_alpha2 %>"><button class="button is-dark is-large is-fullwidth mt-4">Cancel Changes</button></a>
+                    <a href="/countries/<%= country.iso_alpha2 %>"><button
+                            class="button is-dark is-large is-fullwidth mt-4">Cancel Changes</button></a>
                 </div>
             </article>
         </div>

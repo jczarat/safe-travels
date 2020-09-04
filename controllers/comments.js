@@ -35,16 +35,16 @@ function edit(req, res) {
         Comment.find({ countryCode: countryCode }).populate('user').exec(function (err, comments) {
             Comment.findById(req.params.id, function (err, comment) {
                 console.log(editCommentId)
-                res.render('comments/update', { title: 'Update Comment', country, comments, comment, editCommentId});
+                res.render('comments/update', { title: 'Update Comment', country, comments, comment, editCommentId });
             })
         })
     })
 }
 
-function update(req, res){
-    Comment.findById(req.params.id, function(err, comment){
+function update(req, res) {
+    Comment.findById(req.params.id, function (err, comment) {
         comment.text = req.body.text
-        comment.save(function(err) {
+        comment.save(function (err) {
             res.redirect(`/countries/${req.query.countryCode}`)
         })
     })

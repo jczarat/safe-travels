@@ -2,71 +2,71 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-  <link rel='stylesheet' href='/stylesheets/style.css' />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
 </head>
 
 <body class="is-family-secondary">
-  <nav id="mynav" class="navbar is-spaced" role="navigation" aria-label="main navigation">
+    <nav id="mynav" class="navbar is-spaced" role="navigation" aria-label="main navigation">
 
-    <div class="navbar-brand">
-      <p class="image is-64x64">
-        <img src="https://i.imgur.com/VthtYEq.png" class="is-rounded">
-      </p>
-      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-        data-target="navbarBasicExample">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-
-
-    <div id="navbarBasicExample" class="navbar-menu">
-      <div class="navbar-start">
-        <a href="/" class="navbar-item is-size-4 has-text-weight-semibold">
-          Home
-        </a>
-        <a href="/countries" class="navbar-item is-size-4 has-text-weight-semibold">
-          Countries
-        </a>
-        <a href="/favorites" class="navbar-item is-size-4 has-text-weight-semibold">
-          Favorites
-        </a>
-        <div class="navbar-item">
-          <form action="/search" method="GET" class="field has-addons is-grouped">
-            <input type="text" name="name" placeholder="Enter a country name" class="input">
-            <button type="submit" class="button is-dark">Search</button>
-          </form>
+        <div class="navbar-brand">
+            <p class="image is-64x64">
+                <img src="https://i.imgur.com/VthtYEq.png" class="is-rounded">
+            </p>
+            <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+                data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
         </div>
-      </div>
-    </div>
 
-    <div class="navbar-end">
-      <% if (user) { %>
-      <p class="image is-64x64">
-        <img src="<%= user.avatar %>" class="is-rounded">
-      </p>
-      <div class="navbar-item">
-        <h2><strong><%= user.name %></strong></h2>
-      </div>
-      <% } %>
-      <div class="navbar-item">
-        <div class="buttons">
-          <% if (user) { %>
-          <a href="/logout" class="button is-light">Log Out</a>
-          <% } else { %>
-          <a href="/auth/google" class="button is-dark">Login with Google</a>
-          <% } %>
-          </a>
+
+        <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item is-size-4 has-text-weight-semibold">
+                    Home
+                </a>
+                <a href="/countries" class="navbar-item is-size-4 has-text-weight-semibold">
+                    Countries
+                </a>
+                <a href="/favorites" class="navbar-item is-size-4 has-text-weight-semibold">
+                    Favorites
+                </a>
+                <div class="navbar-item">
+                    <form action="/search" method="GET" class="field has-addons is-grouped">
+                        <input type="text" name="name" placeholder="Enter a country name" class="input">
+                        <button type="submit" class="button is-dark">Search</button>
+                    </form>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
 
-  </nav>
+        <div class="navbar-end">
+            <% if (user) { %>
+            <p class="image is-64x64">
+                <img src="<%= user.avatar %>" class="is-rounded">
+            </p>
+            <div class="navbar-item">
+                <h2><strong><%= user.name %></strong></h2>
+            </div>
+            <% } %>
+            <div class="navbar-item">
+                <div class="buttons">
+                    <% if (user) { %>
+                    <a href="/logout" class="button is-light">Log Out</a>
+                    <% } else { %>
+                    <a href="/auth/google" class="button is-dark">Login with Google</a>
+                    <% } %>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </nav>
 
 </body>
 
